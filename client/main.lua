@@ -53,3 +53,4 @@ RegisterNetEvent('td-moneywash:client:OpenWithAmount', function(markedBills)
         TriggerServerEvent('td-moneywash:server', newAmount, playerCoords)
     end
 end)
+

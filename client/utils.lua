@@ -1,3 +1,4 @@
+local QBCore = exports['qb-core']:GetCoreObject()
 local spawnedNPCs = {}
 
 function SpawnNPCs()
@@ -11,25 +12,37 @@ function SpawnNPCs()
         end
     end
 
-    for _, coords in ipairs(Config.NPCs) do
-        local npc = CreatePed(5, modelHash, coords.x, coords.y, coords.z - 0.975, coords.w, false, false)
-        FreezeEntityPosition(npc, true)
-        SetEntityInvincible(npc, true)
-        SetBlockingOfNonTemporaryEvents(npc, true)
-        TaskStartScenarioInPlace(npc, animation, 0, false)
+    for _, npcData in ipairs(Config.NPCs) do
+        local coords = npcData.position
+        if coords and coords.z then
+            local npc = CreatePed(5, modelHash, coords.x, coords.y, coords.z - 0.975, coords.w, false, false)
+            FreezeEntityPosition(npc, true)
+            SetEntityInvincible(npc, true)
+            SetBlockingOfNonTemporaryEvents(npc, true)
+            TaskStartScenarioInPlace(npc, animation, 0, false)
 
-        exports['qb-target']:AddTargetEntity(npc, {
-            options = {
-                {
-                    event = "td-moneywash:client:Open",
-                    icon = "fas fa-hands",
-                    label = "Para Akla"
-                }
-            },
-            distance = 1.5
-        })
-
-        table.insert(spawnedNPCs, npc)
+            exports['qb-target']:AddTargetEntity(npc, {
+                options = {
+                    {
+                        event = "td-moneywash:client:Open",
+                        icon = "fas fa-hands",
+                        label = "Para Akla",
+                        action = function()
+                            local playerJob = QBCore.Functions.GetPlayerData().job.name
+                            if playerJob == npcData.job then
+                                TriggerServerEvent('td-moneywash:server:GetMarkedBills')
+                            else
+                                local jobLabel = QBCore.Shared.Jobs[npcData.job].label
+                                QBCore.Functions.Notify("Bu NPC ile etkileşime geçmek için " .. jobLabel .. " mesleğinde olmalısın.", 'error')
+                            end
+                        end
+                    }
+                },
+                distance = 1.5
+            })
+        else
+            print("Birşeyler yanlış gitti!")
+        end
     end
 end
 

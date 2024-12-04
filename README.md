@@ -5,3 +5,4 @@
 - markedbills item'ini envanterinize eklediğinizden emin olun.
 ## Dependencies
 - ox_lib
+- ox_target & qb-target

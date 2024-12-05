@@ -1,6 +1,6 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 
-RegisterNetEvent('td-moneywash:server', function(amount, playerCoords)
+RegisterNetEvent('td-moneywash:server:WashMoney', function(amount, playerCoords)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
 
@@ -29,5 +29,5 @@ RegisterNetEvent('td-moneywash:server:GetMarkedBills', function()
         end
     end
 
-    TriggerClientEvent('td-moneywash:client:OpenWithAmount', src, markedBills)
+    TriggerClientEvent('td-moneywash:client:WashMoney', src, markedBills)
 end)

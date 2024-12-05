@@ -4,7 +4,7 @@ lua54 'yes'
 
 author 'triggerderler'
 description 'td-moneywash'
-version '1.6'
+version '1.7'
 
 server_scripts { 
     "server/*",

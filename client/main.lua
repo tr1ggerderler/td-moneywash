@@ -4,7 +4,7 @@ RegisterNetEvent('td-moneywash:client:Open', function()
     TriggerServerEvent('td-moneywash:server:GetMarkedBills')
 end)
 
-RegisterNetEvent('td-moneywash:client:OpenWithAmount', function(markedBills)
+RegisterNetEvent('td-moneywash:client:WashMoney', function(markedBills)
     local input = lib.inputDialog('Kara Para Akla', { 
         { 
             type = "number", 
@@ -46,11 +46,10 @@ RegisterNetEvent('td-moneywash:client:OpenWithAmount', function(markedBills)
             },
         }) then
             local playerCoords = GetEntityCoords(PlayerPedId())
-            TriggerServerEvent('td-moneywash:server', newAmount, playerCoords)
+            TriggerServerEvent('td-moneywash:server:WashMoney', newAmount, playerCoords)
         end
     else 
         local playerCoords = GetEntityCoords(PlayerPedId())
-        TriggerServerEvent('td-moneywash:server', newAmount, playerCoords)
+        TriggerServerEvent('td-moneywash:server:WashMoney', newAmount, playerCoords)
     end
 end)
-

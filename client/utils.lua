@@ -32,8 +32,8 @@ function SpawnNPCs()
                             if playerJob == npcData.job then
                                 TriggerServerEvent('td-moneywash:server:GetMarkedBills')
                             else
-                                local jobLabel = QBCore.Shared.Jobs[npcData.job].label
-                                QBCore.Functions.Notify("Bu NPC ile etkileşime geçmek için " .. jobLabel .. " mesleğinde olmalısın.", 'error')
+                                local jobLabel = QBCore.Shared.Jobs[npcData.job] and QBCore.Shared.Jobs[npcData.job].label or "geçersiz meslek"
+                                QBCore.Functions.Notify("Bu işlemi yapabilmek için " .. jobLabel .. " mesleğine sahip olmalısın.", 'error')
                             end
                         end
                     }
